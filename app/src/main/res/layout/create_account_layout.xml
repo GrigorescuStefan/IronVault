@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#01090E"
+    android:orientation="vertical"
+    android:padding="25dp"
+    tools:context=".CreateAccountActivity">
+
+    <TextView
+        android:id="@+id/CreateAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create your account"
+        android:textColor="#D9D9D9"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.043"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:id="@+id/emailAddress"
+        android:layout_width="321dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="48dp"
+        android:background="#01090E"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:textAlignment="textStart"
+        android:textColor="#D9D9D9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CreateAccount"
+        tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/emailAddressLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Email address"
+        android:textColor="#D9D9D9"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/emailAddress"
+        app:layout_constraintStart_toStartOf="@+id/emailAddress"
+        tools:ignore="HardcodedText" />
+
+    <View
+        android:id="@+id/underlineEmail"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="4dp"
+        android:background="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@+id/emailAddress"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/emailAddress"
+        app:layout_constraintTop_toBottomOf="@+id/emailAddress" />
+
+    <TextView
+        android:id="@+id/masterPasswordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Master Password"
+        android:textColor="#D9D9D9"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/TextInputLayoutMasterPass"
+        app:layout_constraintStart_toStartOf="@+id/TextInputLayoutMasterPass"
+        tools:ignore="HardcodedText" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/TextInputLayoutMasterPass"
+        android:layout_width="321dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailAddress"
+        app:layout_constraintVertical_bias="0.017"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/SwitchOff">
+
+        <EditText
+            android:id="@+id/masterPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="60dp"
+            android:background="#01090E"
+            android:ems="10"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:textAlignment="textStart"
+            android:textColor="#D9D9D9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailAddress"
+            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/underlineMasterPassword"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="4dp"
+        android:background="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutMasterPass"
+        app:layout_constraintStart_toStartOf="@+id/TextInputLayoutMasterPass"
+        app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutMasterPass" />
+
+    <TextView
+        android:id="@+id/reTypeMasterPasswordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Re-Type Master Password"
+        android:textColor="#D9D9D9"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/TextInputLayoutReTypeMasterPass"
+        app:layout_constraintStart_toStartOf="@+id/TextInputLayoutReTypeMasterPass"
+        tools:ignore="HardcodedText" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/TextInputLayoutReTypeMasterPass"
+        android:layout_width="321dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutMasterPass"
+        app:layout_constraintVertical_bias="0.019"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/SwitchOff">
+
+        <EditText
+            android:id="@+id/reTypeMasterPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#01090E"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:textAlignment="textStart"
+            android:textColor="#D9D9D9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/underlineMasterPassword"
+            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/underlineReTypeMasterPassword"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="4dp"
+        android:background="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutReTypeMasterPass"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/TextInputLayoutReTypeMasterPass"
+        app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutReTypeMasterPass" />
+
+    <TextView
+        android:id="@+id/MasterPasswordHintLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Master Password Hint (Optional)"
+        android:textColor="#D9D9D9"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/MasterPasswordHint"
+        app:layout_constraintStart_toStartOf="@+id/MasterPasswordHint"
+        tools:ignore="HardcodedText" />
+
+    <View
+        android:id="@+id/underlineMasterPasswordHint"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="8dp"
+        android:background="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@+id/MasterPasswordHint"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/MasterPasswordHint"
+        app:layout_constraintTop_toBottomOf="@+id/MasterPasswordHint" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchCompat"
+        android:theme="@style/Switch"
+        android:layout_width="321dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:checked="false"
+        android:text="Check known data breaches for this password"
+        android:textOff="Off"
+        android:textOn="On"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/underlineMasterPasswordHint"
+        app:layout_constraintVertical_bias="0.182"
+        tools:ignore="HardcodedText,TextSizeCheck" />
+
+    <EditText
+        android:id="@+id/MasterPasswordHint"
+        android:layout_width="321dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="60dp"
+        android:background="#01090E"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textAlignment="textStart"
+        android:textColor="#D9D9D9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutReTypeMasterPass"
+        app:layout_constraintVertical_bias="0.036"
+        tools:ignore="LabelFor,SpeakableTextPresentCheck,TextFields" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="321dp"
+        android:layout_height="73dp"
+        android:background="#650DD9"
+        android:text="Continue"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#D9D9D9"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchCompat"
+        app:layout_constraintVertical_bias="0.509"
+        tools:ignore="HardcodedText,VisualLintButtonSize" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

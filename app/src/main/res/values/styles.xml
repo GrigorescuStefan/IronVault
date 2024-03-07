@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="FullScreenTheme" parent="Theme.AppCompat">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/black</item>
+        <!-- Customize the color when the switch is in the ON state -->
+        <item name="colorControlActivated">@color/SwitchOn</item>
+
+        <!-- Customize the color when the switch is in the OFF state -->
+        <item name="colorSwitchThumbNormal">@color/SwitchOff</item>
+
+        <!-- Customize the track color when the switch is in the OFF state -->
+        <item name="colorSurface">@color/SwitchTrackOff</item>
+    </style>
+
+    <style name="Switch" parent="Theme.AppCompat">
+        <!-- Customize the color when the switch is in the ON state -->
+        <item name="colorControlActivated">@color/SwitchOn</item>
+
+        <!-- Customize the color when the switch is in the OFF state -->
+        <item name="colorSwitchThumbNormal">@color/SwitchOff</item>
+
+        <!-- Customize the track color when the switch is in the OFF state -->
+        <item name="colorSurface">@color/SwitchTrackOff</item>
+    </style>
+
+</resources>

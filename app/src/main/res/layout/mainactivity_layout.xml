@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#01090E"
+    tools:context=".MainActivity">
+
+    <!--This is a really scuffed method to ensure all the right elements are rendered properly
+    I want to find a better method in the future but for now, it doesn't seem to want to render
+    the switchCompat unless it has to skip another switch first-->
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/material_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:focusable="false"
+        android:clickable="false"
+        android:text=""
+        android:theme="@style/Theme.AppCompat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="129dp"
+        android:layout_height="94dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/AppName"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.149" />
+
+    <TextView
+        android:id="@+id/AppName"
+        android:layout_width="206dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="124dp"
+        android:layout_marginEnd="28dp"
+        android:text="IRON VAULT"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="#D9D9D9"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText,TextSizeCheck" />
+
+    <TextView
+        android:id="@+id/emailAddressLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:layout_marginBottom="8dp"
+        android:text="Email address"
+        android:textColor="#D9D9D9"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.003"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        app:layout_constraintVertical_bias="0.2"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:id="@+id/editTextTextEmailAddress"
+        android:layout_width="321dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="116dp"
+        android:background="#01090E"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:textAlignment="textStart"
+        android:textColor="#D9D9D9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AppName"
+        tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+
+    <View
+        android:id="@+id/underline"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="#FFFFFF"
+        android:paddingTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchCompatRememberMe"
+        android:layout_width="321dp"
+        android:layout_height="49dp"
+        android:checked="false"
+        android:text=" Remember me"
+        android:textOff="Off"
+        android:textOn="On"
+        android:textSize="16sp"
+        android:theme="@style/FullScreenTheme"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/underline"
+        app:layout_constraintVertical_bias="0.344"
+        tools:ignore="HardcodedText,VisualLintButtonSize" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="321dp"
+        android:layout_height="73dp"
+        android:background="#650DD9"
+        android:text="Continue"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#D9D9D9"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.648"
+        tools:ignore="HardcodedText,VisualLintButtonSize" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Don't have an account?"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/CreateAccountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Create one"
+        android:textColor="#650DD9"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.015"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="HardcodedText,TextContrastCheck,TouchTargetSizeCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#01090E"
+    android:orientation="vertical"
+    tools:context=".AuthenticationActivity">
+
+<!--    THIS IS THE LOGO OF THE APPLICATION-->
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="129dp"
+        android:layout_height="94dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/AppName"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.149" />
+
+<!--    THIS IS THE APPLICATION NAME, THE TEXT NEXT TO THE LOGO-->
+    <TextView
+        android:id="@+id/AppName"
+        android:layout_width="206dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="28dp"
+        android:text="IRON VAULT"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="#D9D9D9"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText,TextSizeCheck" />
+
+<!--    THIS IS THE TEXT "MASTER PASSWORD" ABOVE THE ACTUAL TEXT FIELD-->
+    <TextView
+        android:id="@+id/masterPasswordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Master Password"
+        android:textColor="#D9D9D9"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayoutMasterPassword"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayoutMasterPassword"
+        tools:ignore="HardcodedText" />
+
+    <!--    THIS IS THE LAYOUT FOR THE MASTER PASSWORD FIELD-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutMasterPassword"
+        android:layout_width="321dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="128dp"
+        app:layout_constraintBottom_toTopOf="@+id/masterPasswordUnderline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AppName"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/SwitchOff">
+
+        <EditText
+            android:id="@+id/editTextMasterPassword"
+            android:layout_width="321dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="72dp"
+            android:layout_marginBottom="4dp"
+            android:background="#01090E"
+            android:ems="10"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:textAlignment="textStart"
+            android:textColor="#D9D9D9"
+            app:layout_constraintBottom_toTopOf="@+id/masterPasswordUnderline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.351"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/AppName"
+            app:layout_constraintVertical_bias="0.175"
+            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--    THIS IS THE UNDERLINE FOR THE MASTER PASSWORD TEXT FIELD-->
+    <View
+        android:id="@+id/masterPasswordUnderline"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="#FFFFFF"
+        android:paddingTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayoutMasterPassword"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayoutMasterPassword"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutMasterPassword" />
+
+    <TextView
+        android:id="@+id/passwordHintLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Password Hint"
+        android:textColor="#D9D9D9"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayoutPasswordHint"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayoutPasswordHint"
+        tools:ignore="HardcodedText" />
+
+    <View
+        android:id="@+id/underlinePasswordHint"
+        android:layout_width="321dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="8dp"
+        android:background="#FFFFFF"
+        android:paddingTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayoutPasswordHint"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayoutPasswordHint"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPasswordHint" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutPasswordHint"
+        android:layout_width="321dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="110dp"
+        app:layout_constraintBottom_toTopOf="@+id/underlinePasswordHint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/masterPasswordUnderline"
+        app:layout_constraintVertical_bias="0.163"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/SwitchOff">
+
+        <EditText
+            android:id="@+id/passwordHint"
+            android:layout_width="321dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="104dp"
+            android:background="#01090E"
+            android:clickable="false"
+            android:ems="10"
+            android:focusable="false"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:textAlignment="textStart"
+            android:textColor="#D9D9D9"
+            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/masterPasswordUnderline"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="LabelFor,SpeakableTextPresentCheck,TextFields,TouchTargetSizeCheck" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/LogIn"
+        android:layout_width="321dp"
+        android:layout_height="73dp"
+        android:background="#650DD9"
+        android:text="Log in"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#D9D9D9"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.468"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.796"
+        tools:ignore="HardcodedText,VisualLintButtonSize" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
