@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.ComponentActivity
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.ironvault.ui.theme.IronVaultTheme
@@ -35,11 +34,11 @@ class MainActivity : ComponentActivity() {
 
             continueButton.setOnClickListener {
                 if (UtilityFunctions.checkEmptyString(emailAddress.text.toString())) {
-                    UtilityFunctions.showToastMessage(this, "Email field cannot be left empty!")
+                    UtilityFunctions.showToastMessage(this@MainActivity, "Email field cannot be left empty!")
                     return@setOnClickListener
                 }
                 if (!UtilityFunctions.isValidEmail(emailAddress.text.toString())) {
-                    UtilityFunctions.showToastMessage(this, "Invalid email address!")
+                    UtilityFunctions.showToastMessage(this@MainActivity, "Invalid email address!")
                     emailAddress.text = ""
                     return@setOnClickListener
                 }
@@ -62,7 +61,7 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                     if (!emailFound) {
-                        UtilityFunctions.showToastMessage(this, "Email address not found!")
+                        UtilityFunctions.showToastMessage(this@MainActivity, "Email address not found!")
                     }
                 }
             }

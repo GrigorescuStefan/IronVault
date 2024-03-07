@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.android.volley.Request.Method
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -17,6 +18,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.launch
 import java.io.BufferedReader
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -24,6 +26,8 @@ import java.io.InputStreamReader
 import java.security.MessageDigest
 import javax.crypto.SecretKey
 import javax.crypto.spec.SecretKeySpec
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class CreateAccountActivity : ComponentActivity() {
 
@@ -68,7 +72,6 @@ class CreateAccountActivity : ComponentActivity() {
         passHint: TextView,
         switchCompatCheck: SwitchCompat
     ) {
-        var foundOccurrences = false
         var foundEmail = false
         val switchOffColor = ContextCompat.getColor(this, R.color.SwitchOff)
         val switchOnColor = ContextCompat.getColor(this, R.color.SwitchOn)
@@ -81,103 +84,119 @@ class CreateAccountActivity : ComponentActivity() {
         )
 
         button.setOnClickListener {
-            button.isEnabled = false
-            button.setBackgroundColor(switchOffColor)
-            if (UtilityFunctions.checkEmptyString(emailAddressTextView.text.toString())) {
-                UtilityFunctions.showToastMessage(this, "Email field cannot be left empty!")
-                button.isEnabled = true
-                button.setBackgroundColor(switchOnColor)
-                return@setOnClickListener
-            }
-            if (!UtilityFunctions.isValidEmail(emailAddressTextView.text.toString())) {
-                UtilityFunctions.showToastMessage(this, "Invalid email address!")
-                emailAddressTextView.text = ""
-                button.isEnabled = true
-                button.setBackgroundColor(switchOnColor)
-                return@setOnClickListener
-            }
-            if (UtilityFunctions.checkEmptyString(masterPass.text.toString()) || UtilityFunctions.checkEmptyString(
-                    reTypeMasterPass.text.toString()
-                )
-            ) {
-                UtilityFunctions.showToastMessage(this, "Password fields cannot be left empty!")
-                button.isEnabled = true
-                button.setBackgroundColor(switchOnColor)
-                return@setOnClickListener
-            }
-            if (masterPass.text.toString().length < minNumberOfCharacters || reTypeMasterPass.text.toString().length < minNumberOfCharacters) {
-                UtilityFunctions.showToastMessage(
-                    this,
-                    "Passwords cannot be smaller than 8 characters!"
-                )
-                button.isEnabled = true
-                button.setBackgroundColor(switchOnColor)
-                return@setOnClickListener
-            }
-            if (!matchingPasswordContent(
-                    masterPass.text.toString(),
-                    reTypeMasterPass.text.toString()
-                )
-            ) {
-                UtilityFunctions.showToastMessage(this, "Passwords do not match!")
-                masterPass.text = ""
-                reTypeMasterPass.text = ""
-                button.isEnabled = true
-                button.setBackgroundColor(switchOnColor)
-                return@setOnClickListener
-            }
-//          TO DO: Resolve the foundOccurences to actually switch to true, right now it stays false constantly
-//          hours spent here - 5
-            if (switchCompatCheck.isChecked) {
-                passwordBreachCheck(masterPass.text.toString()) { occurrences ->
+            lifecycleScope.launch {
+                button.isEnabled = false
+                button.setBackgroundColor(switchOffColor)
+                if (UtilityFunctions.checkEmptyString(emailAddressTextView.text.toString())) {
+                    UtilityFunctions.showToastMessage(
+                        this@CreateAccountActivity,
+                        "Email field cannot be left empty!"
+                    )
+                    button.isEnabled = true
+                    button.setBackgroundColor(switchOnColor)
+                    return@launch
+                }
+                if (!UtilityFunctions.isValidEmail(emailAddressTextView.text.toString())) {
+                    UtilityFunctions.showToastMessage(
+                        this@CreateAccountActivity,
+                        "Invalid email address!"
+                    )
+                    emailAddressTextView.text = ""
+                    button.isEnabled = true
+                    button.setBackgroundColor(switchOnColor)
+                    return@launch
+                }
+                if (UtilityFunctions.checkEmptyString(masterPass.text.toString()) || UtilityFunctions.checkEmptyString(
+                        reTypeMasterPass.text.toString()
+                    )
+                ) {
+                    UtilityFunctions.showToastMessage(
+                        this@CreateAccountActivity,
+                        "Password fields cannot be left empty!"
+                    )
+                    button.isEnabled = true
+                    button.setBackgroundColor(switchOnColor)
+                    return@launch
+                }
+                if (masterPass.text.toString().length < minNumberOfCharacters || reTypeMasterPass.text.toString().length < minNumberOfCharacters) {
+                    UtilityFunctions.showToastMessage(
+                        this@CreateAccountActivity,
+                        "Passwords cannot be smaller than 8 characters!"
+                    )
+                    button.isEnabled = true
+                    button.setBackgroundColor(switchOnColor)
+                    return@launch
+                }
+                if (!matchingPasswordContent(
+                        masterPass.text.toString(),
+                        reTypeMasterPass.text.toString()
+                    )
+                ) {
+                    UtilityFunctions.showToastMessage(
+                        this@CreateAccountActivity,
+                        "Passwords do not match!"
+                    )
+                    masterPass.text = ""
+                    reTypeMasterPass.text = ""
+                    button.isEnabled = true
+                    button.setBackgroundColor(switchOnColor)
+                    return@launch
+                }
+
+                if (switchCompatCheck.isChecked) {
+                    val occurrences = passwordBreachCheckAsync(masterPass.text.toString())
                     if (occurrences > 0) {
-                        foundOccurrences = true
                         button.isEnabled = true
                         button.setBackgroundColor(switchOnColor)
                         UtilityFunctions.showToastMessage(
-                            this,
+                            this@CreateAccountActivity,
                             "Your password was seen $occurrences times in previous data breaches"
                         )
+                        return@launch
                     }
                 }
-                if (foundOccurrences) {
-                    return@setOnClickListener
-                }
-            }
-
-            existingEmailInDB(emailAddressTextView.text.toString(), db) { doesEmailExists ->
-                if (doesEmailExists) {
-                    foundEmail = true
-                    UtilityFunctions.showToastMessage(this, "Email is already in use!")
-                    emailAddressTextView.text = ""
-                } else {
-                    newUser.replace(
-                        "emailAddress",
-                        UtilityFunctions.encryptAES(
-                            emailAddressTextView.text.toString(),
-                            secretKey,
-                            initVector
+                existingEmailInDB(emailAddressTextView.text.toString(), db) { doesEmailExists ->
+                    if (doesEmailExists) {
+                        foundEmail = true
+                        UtilityFunctions.showToastMessage(
+                            this@CreateAccountActivity,
+                            "Email is already in use!"
                         )
-                    )
-                    newUser.replace(
-                        "masterPassword",
-                        UtilityFunctions.encryptAES(
-                            masterPass.text.toString(),
-                            secretKey,
-                            initVector
+                        emailAddressTextView.text = ""
+                    } else {
+                        newUser.replace(
+                            "emailAddress",
+                            UtilityFunctions.encryptAES(
+                                emailAddressTextView.text.toString(),
+                                secretKey,
+                                initVector
+                            )
                         )
-                    )
-                    newUser.replace(
-                        "passwordHint",
-                        UtilityFunctions.encryptAES(passHint.text.toString(), secretKey, initVector)
-                    )
-                    addUserToDatabase(users, newUser)
+                        newUser.replace(
+                            "masterPassword",
+                            UtilityFunctions.encryptAES(
+                                masterPass.text.toString(),
+                                secretKey,
+                                initVector
+                            )
+                        )
+                        newUser.replace(
+                            "passwordHint",
+                            UtilityFunctions.encryptAES(
+                                passHint.text.toString(),
+                                secretKey,
+                                initVector
+                            )
+                        )
+                        addUserToDatabase(users, newUser)
+                    }
                 }
-            }
-            if (foundEmail) {
-                return@setOnClickListener
+                if (foundEmail) {
+                    return@launch
+                }
             }
         }
+
     }
 
     private fun matchingPasswordContent(password: String, reTypePassword: String): Boolean {
@@ -230,25 +249,26 @@ class CreateAccountActivity : ComponentActivity() {
         return hexString.toString().uppercase()
     }
 
-    private fun passwordBreachCheck(password: String, callback: (Int) -> Unit) {
-        val shaPassword = sha1(password)
-        val firstFiveHexCharacters = shaPassword.substring(0, 5).uppercase()
-        val apiURL = "https://api.pwnedpasswords.com/range/$firstFiveHexCharacters"
-        val queue = Volley.newRequestQueue(this)
+    private suspend fun passwordBreachCheckAsync(password: String): Int {
+        return suspendCoroutine { continuation ->
+            val shaPassword = sha1(password)
+            val firstFiveHexCharacters = shaPassword.substring(0, 5).uppercase()
+            val apiURL = "https://api.pwnedpasswords.com/range/$firstFiveHexCharacters"
+            val queue = Volley.newRequestQueue(this)
 
-        val stringRequest = StringRequest(Method.GET, apiURL,
-            { response ->
-                val map = parseResponseString(response)
-                val suffix = shaPassword.substring(5).uppercase()
-                if (map.containsKey(suffix)) {
+            val stringRequest = StringRequest(Method.GET, apiURL,
+                { response ->
+                    val map = parseResponseString(response)
+                    val suffix = shaPassword.substring(5).uppercase()
                     val occurrences = map[suffix] ?: 0
-                    callback(occurrences)
-                }
-            },
-            { error ->
-                Log.d("---Error---:", error.toString())
-            })
-        queue.add(stringRequest)
+                    continuation.resume(occurrences)
+                },
+                { error ->
+                    Log.d("---Error---:", error.toString())
+                    continuation.resume(0) // or handle the error accordingly
+                })
+            queue.add(stringRequest)
+        }
     }
 
     private fun parseResponseString(response: String): Map<String, Int> {
@@ -294,7 +314,8 @@ class CreateAccountActivity : ComponentActivity() {
     }
 
     //Used to save the necessary encryption keys to a file in internal storage
-    //Looking for a better alternative
+    //Looking for a better alternatives
+    // FOUND BETTER ALTERNATIVE - TO DO - IMPLEMENT WHAT YOU LEARNED
     private fun saveToFile(context: Context, data: String) {
         try {
             val filename = "data.txt"
