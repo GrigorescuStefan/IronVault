@@ -1,6 +1,7 @@
 package com.example.ironvault
 
 import android.content.Context
+import android.os.Bundle
 import javax.crypto.Cipher
 import javax.crypto.SecretKey
 import javax.crypto.spec.IvParameterSpec
@@ -62,5 +63,21 @@ object UtilityFunctions {
 
     fun showToastMessage(context: Context, message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun convertBundleToMap(bundle: Bundle): Map<String, String> {
+        val map = mutableMapOf<String, String>()
+        for (key in bundle.keySet()) {
+            map[key] = bundle.getString(key) ?: ""
+        }
+        return map
+    }
+
+    fun convertMapToBundle(data: MutableMap<String, Any>): Bundle {
+        val bundle = Bundle()
+        for ((key, value) in data) {
+            bundle.putString(key, value.toString())
+        }
+        return bundle
     }
 }

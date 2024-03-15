@@ -1,5 +1,6 @@
 package com.example.ironvault
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -17,7 +18,7 @@ class AuthenticationActivity : ComponentActivity() {
         val (privateKey, iv) = UtilityFunctions.readEncryptionDataFromFile(applicationContext)
         val logInButton: Button = findViewById(R.id.LogIn)
         val bundledData = intent.getBundleExtra("loginData")
-        val credentialsMap = bundledData?.let { convertBundleToMap(it) }
+        val credentialsMap = bundledData?.let { UtilityFunctions.convertBundleToMap(it) }
 
         if (privateKey.isNotEmpty()) {
             secretKey = SecretKeySpec(privateKey.toByteArray(), "AES")
@@ -39,10 +40,13 @@ class AuthenticationActivity : ComponentActivity() {
                 return@setOnClickListener
             }
             if(UtilityFunctions.encryptAES(passwordField.text.toString(), secretKey, iv) == passwordFromDB) {
-                UtilityFunctions.showToastMessage(this, "Password matches, you finished the login!")
-                logInButton.isEnabled = true
-                logInButton.setBackgroundColor(switchOnColor)
-                return@setOnClickListener
+//                UtilityFunctions.showToastMessage(this, "Password matches, you finished the login!")
+                val sendCredentials = Intent(this, FragmentsActivity::class.java)
+                sendCredentials.putExtra("credentials", bundledData)
+                startActivity(sendCredentials)
+//                logInButton.isEnabled = true
+//                logInButton.setBackgroundColor(switchOnColor)
+//                return@setOnClickListener
             } else {
                 UtilityFunctions.showToastMessage(this, "Password is incorrect!")
                 logInButton.isEnabled = true
@@ -52,11 +56,4 @@ class AuthenticationActivity : ComponentActivity() {
         }
     }
 
-    private fun convertBundleToMap(bundle: Bundle): Map<String, String> {
-        val map = mutableMapOf<String, String>()
-        for (key in bundle.keySet()) {
-            map[key] = bundle.getString(key) ?: ""
-        }
-        return map
-    }
 }

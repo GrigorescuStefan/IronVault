@@ -2,9 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 
-    id("io.realm.kotlin")
-
     id("com.google.gms.google-services")
+
 }
 
 android {
@@ -45,7 +44,8 @@ android {
         viewBinding = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+//        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.5.0"
     }
     packaging {
         resources {
@@ -60,6 +60,20 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore") // USED FOR DATABASE CONNECTIVITY
 
     implementation("com.android.volley:volley:1.2.1") // USED FOR API REQUESTS
+
+
+    //Navigation Library
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.7.7")
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.7.7")
+
+    androidTestImplementation("androidx.navigation:navigation-testing:2.7.7")
+
+    implementation("androidx.navigation:navigation-compose:2.7.7")
+    // HERE ENDS THE NAVIGATION LIBRARY
+
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")

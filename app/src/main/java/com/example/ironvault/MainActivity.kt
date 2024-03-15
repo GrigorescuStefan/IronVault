@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.content.ContextCompat
 import com.example.ironvault.ui.theme.IronVaultTheme
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
@@ -21,6 +22,8 @@ class MainActivity : ComponentActivity() {
         val continueButton: Button = findViewById(R.id.button)
         val emailAddress: TextView = findViewById(R.id.editTextTextEmailAddress)
         val db = Firebase.firestore
+        val switchOffColor = ContextCompat.getColor(this, R.color.SwitchOff)
+        val switchOnColor = ContextCompat.getColor(this, R.color.SwitchOn)
 
         createAccount?.setOnClickListener {
             val intent = Intent(this, CreateAccountActivity::class.java)
@@ -33,13 +36,19 @@ class MainActivity : ComponentActivity() {
             val secretKey = SecretKeySpec(privateKey.toByteArray(), "AES")
 
             continueButton.setOnClickListener {
+                continueButton.isEnabled = false
+                continueButton.setBackgroundColor(switchOffColor)
                 if (UtilityFunctions.checkEmptyString(emailAddress.text.toString())) {
                     UtilityFunctions.showToastMessage(this@MainActivity, "Email field cannot be left empty!")
+                    continueButton.isEnabled = true
+                    continueButton.setBackgroundColor(switchOnColor)
                     return@setOnClickListener
                 }
                 if (!UtilityFunctions.isValidEmail(emailAddress.text.toString())) {
                     UtilityFunctions.showToastMessage(this@MainActivity, "Invalid email address!")
                     emailAddress.text = ""
+                    continueButton.isEnabled = true
+                    continueButton.setBackgroundColor(switchOnColor)
                     return@setOnClickListener
                 }
                 db.collection("users").get().addOnSuccessListener { documents ->
@@ -53,7 +62,7 @@ class MainActivity : ComponentActivity() {
                             )
                         ) {
                             emailFound = true
-                            val bundledData = convertMapToBundle(document.getData())
+                            val bundledData = UtilityFunctions.convertMapToBundle(document.getData())
                             val sendLoginData = Intent(this, AuthenticationActivity::class.java)
                             sendLoginData.putExtra("loginData", bundledData)
                             startActivity(sendLoginData)
@@ -62,19 +71,14 @@ class MainActivity : ComponentActivity() {
                     }
                     if (!emailFound) {
                         UtilityFunctions.showToastMessage(this@MainActivity, "Email address not found!")
+                        continueButton.isEnabled = true
+                        continueButton.setBackgroundColor(switchOnColor)
                     }
                 }
             }
         }
     }
 
-    private fun convertMapToBundle(data: MutableMap<String, Any>): Bundle {
-        val bundle = Bundle()
-        for ((key, value) in data) {
-            bundle.putString(key, value.toString())
-        }
-        return bundle
-    }
 }
 
 @Preview(showBackground = true)
