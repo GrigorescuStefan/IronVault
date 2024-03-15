@@ -19,7 +19,9 @@
             android:exported="false"
             android:label="@string/title_activity_create_account" />
         <activity android:name=".AuthenticationActivity" />
-        <activity android:name=".FragmentsActivity" />
+        <activity
+            android:name=".FragmentsActivity"
+            android:theme="@style/Theme.MaterialComponents"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -7,25 +7,19 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@color/black</item>
-        <!-- Customize the color when the switch is in the ON state -->
         <item name="colorControlActivated">@color/SwitchOn</item>
-
-        <!-- Customize the color when the switch is in the OFF state -->
         <item name="colorSwitchThumbNormal">@color/SwitchOff</item>
-
-        <!-- Customize the track color when the switch is in the OFF state -->
         <item name="colorSurface">@color/SwitchTrackOff</item>
     </style>
 
     <style name="Switch" parent="Theme.AppCompat">
-        <!-- Customize the color when the switch is in the ON state -->
-        <item name="colorControlActivated">@color/SwitchOn</item>
-
-        <!-- Customize the color when the switch is in the OFF state -->
+        <item name="colorControlActivated">@color/SwitchOn</item>>
         <item name="colorSwitchThumbNormal">@color/SwitchOff</item>
-
-        <!-- Customize the track color when the switch is in the OFF state -->
         <item name="colorSurface">@color/SwitchTrackOff</item>
     </style>
 
+    <style name="styledNavBar" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="android:background">@color/IronVaultBG</item>
+        <item name="itemRippleColor">@color/SwitchOn</item>
+    </style>
 </resources>

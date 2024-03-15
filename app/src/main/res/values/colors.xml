@@ -10,4 +10,5 @@
     <color name="SwitchOn">#650DD9</color>
     <color name="SwitchOff">#646168</color>
     <color name="SwitchTrackOff">#201C25</color>
+    <color name="IronVaultBG">#01090E</color>
 </resources>
