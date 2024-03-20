@@ -69,7 +69,6 @@ class GeneratorFragment : Fragment() {
         }
 
         minusNumberButton.setOnClickListener {
-            var newNumber: Int
             if (numberText.text.toString() == "1") {
                 numberText.text = "0"
                 minusNumberButton.isEnabled = false
@@ -82,12 +81,10 @@ class GeneratorFragment : Fragment() {
                 plusNumberButton.setBackgroundColor(enabledColor)
                 return@setOnClickListener
             }
-            newNumber = numberText.text.toString().toInt()
-            numberText.text = (newNumber - 1).toString()
+            numberText.text = (numberText.text.toString().toInt() - 1).toString()
         }
 
         plusNumberButton.setOnClickListener {
-            var newNumber: Int
             if (numberText.text.toString() == "4") {
                 numberText.text = "5"
                 plusNumberButton.isEnabled = false
@@ -100,15 +97,13 @@ class GeneratorFragment : Fragment() {
                 minusNumberButton.setBackgroundColor(enabledColor)
                 return@setOnClickListener
             }
-            newNumber = numberText.text.toString().toInt()
-            numberText.text = (newNumber + 1).toString()
+            numberText.text = (numberText.text.toString().toInt() + 1).toString()
         }
 
 
 
 
         minusSymbolButton.setOnClickListener {
-            var newNumber: Int
             if (symbolText.text.toString() == "1") {
                 symbolText.text = "0"
                 minusSymbolButton.isEnabled = false
@@ -121,12 +116,10 @@ class GeneratorFragment : Fragment() {
                 plusSymbolButton.setBackgroundColor(enabledColor)
                 return@setOnClickListener
             }
-            newNumber = symbolText.text.toString().toInt()
-            symbolText.text = (newNumber - 1).toString()
+            symbolText.text = (symbolText.text.toString().toInt() - 1).toString()
         }
 
         plusSymbolButton.setOnClickListener {
-            var newNumber: Int
             if (symbolText.text.toString() == "4") {
                 symbolText.text = "5"
                 plusSymbolButton.isEnabled = false
@@ -139,8 +132,7 @@ class GeneratorFragment : Fragment() {
                 minusSymbolButton.setBackgroundColor(enabledColor)
                 return@setOnClickListener
             }
-            newNumber = symbolText.text.toString().toInt()
-            symbolText.text = (newNumber + 1).toString()
+            symbolText.text = (symbolText.text.toString().toInt() + 1).toString()
         }
 
         passwordLengthSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
