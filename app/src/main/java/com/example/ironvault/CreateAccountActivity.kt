@@ -21,7 +21,6 @@ import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.launch
 import java.io.BufferedReader
 import java.io.FileInputStream
-import java.io.FileOutputStream
 import java.io.InputStreamReader
 import java.security.MessageDigest
 import javax.crypto.SecretKey
@@ -45,7 +44,7 @@ class CreateAccountActivity : ComponentActivity() {
             val reTypeMasterPasswordTextView: TextView = findViewById(R.id.reTypeMasterPassword)
             val passwordHintTextView: TextView = findViewById(R.id.MasterPasswordHint)
             val switchCompatCheck: SwitchCompat = findViewById(R.id.switchCompat)
-            val continueButton: Button = findViewById(R.id.button)
+            val continueButton: Button = findViewById(R.id.createAccountButton)
 
             addUser(
                 secretKey,
@@ -315,16 +314,18 @@ class CreateAccountActivity : ComponentActivity() {
 
     //Used to save the necessary encryption keys to a file in internal storage
     //Looking for a better alternatives
-    // FOUND BETTER ALTERNATIVE - TO DO - IMPLEMENT WHAT YOU LEARNED
-    private fun saveToFile(context: Context, data: String) {
-        try {
-            val filename = "data.txt"
-            val fileOutputStream: FileOutputStream =
-                context.openFileOutput(filename, Context.MODE_PRIVATE)
-            fileOutputStream.write(data.toByteArray())
-            fileOutputStream.close()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
+    // FOUND BETTER ALTERNATIVE - TO DO - IMPLEMENT WHAT YOU LEARNED - 07/03/2024
+    // use the hashed master password as the secret key, as well as initializing the iv at every new master account creation
+    // encrypt and decrypt based on these values
+//    private fun saveToFile(context: Context, data: String) {
+//        try {
+//            val filename = "data.txt"
+//            val fileOutputStream: FileOutputStream =
+//                context.openFileOutput(filename, Context.MODE_PRIVATE)
+//            fileOutputStream.write(data.toByteArray())
+//            fileOutputStream.close()
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
+//    }
 }

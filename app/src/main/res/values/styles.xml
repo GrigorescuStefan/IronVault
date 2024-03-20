@@ -22,4 +22,10 @@
         <item name="android:background">@color/IronVaultBG</item>
         <item name="itemRippleColor">@color/SwitchOn</item>
     </style>
+
+    <style name="MySeekBar" parent="Widget.AppCompat.SeekBar">
+        <item name="android:progressBackgroundTint">@color/SwitchOff</item>
+        <item name="android:progressTint">@color/SwitchOn</item>
+        <item name="android:thumbTint">@color/SwitchOn</item>
+    </style>
 </resources>

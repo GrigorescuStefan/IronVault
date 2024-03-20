@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
         setContentView(R.layout.mainactivity_layout)
 
         val createAccount: TextView? = findViewById(R.id.CreateAccountText)
-        val continueButton: Button = findViewById(R.id.button)
+        val continueButton: Button = findViewById(R.id.continueMainButton)
         val emailAddress: TextView = findViewById(R.id.editTextTextEmailAddress)
         val db = Firebase.firestore
         val switchOffColor = ContextCompat.getColor(this, R.color.SwitchOff)
@@ -28,6 +28,11 @@ class MainActivity : ComponentActivity() {
         createAccount?.setOnClickListener {
             val intent = Intent(this, CreateAccountActivity::class.java)
             startActivity(intent)
+        }
+
+        continueButton.setOnClickListener {
+            val sendLoginData = Intent(this, AuthenticationActivity::class.java)
+            startActivity(sendLoginData)
         }
 
         val (privateKey, iv) = UtilityFunctions.readEncryptionDataFromFile(applicationContext)

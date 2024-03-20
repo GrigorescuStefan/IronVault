@@ -20,7 +20,7 @@ class FragmentsActivity : FragmentActivity() {
         val navigationMenu: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         val bundledData = intent.getBundleExtra("credentials")
         val credentialsMap = bundledData?.let { UtilityFunctions.convertBundleToMap(it) }
-        UtilityFunctions.showToastMessage(this, credentialsMap.toString())
+//        UtilityFunctions.showToastMessage(this, credentialsMap.toString())
 
         navigationMenu.setOnItemSelectedListener { menuItem ->
             when(menuItem.itemId){

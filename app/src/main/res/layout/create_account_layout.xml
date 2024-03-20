@@ -105,7 +105,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emailAddress"
-            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -157,7 +157,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/underlineMasterPassword"
-            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -212,7 +212,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/underlineMasterPasswordHint"
         app:layout_constraintVertical_bias="0.182"
-        tools:ignore="HardcodedText,TextSizeCheck" />
+        tools:ignore="HardcodedText,TextSizeCheck,VisualLintButtonSize" />
 
     <EditText
         android:id="@+id/MasterPasswordHint"
@@ -234,7 +234,7 @@
         tools:ignore="LabelFor,SpeakableTextPresentCheck,TextFields" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/createAccountButton"
         android:layout_width="321dp"
         android:layout_height="73dp"
         android:background="#650DD9"
