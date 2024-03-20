@@ -69,7 +69,7 @@ class GeneratorFragment : Fragment() {
         }
 
         minusNumberButton.setOnClickListener {
-            var newNumber = 0
+            var newNumber: Int
             if (numberText.text.toString() == "1") {
                 numberText.text = "0"
                 minusNumberButton.isEnabled = false
@@ -87,7 +87,7 @@ class GeneratorFragment : Fragment() {
         }
 
         plusNumberButton.setOnClickListener {
-            var newNumber = 0
+            var newNumber: Int
             if (numberText.text.toString() == "4") {
                 numberText.text = "5"
                 plusNumberButton.isEnabled = false
@@ -108,7 +108,7 @@ class GeneratorFragment : Fragment() {
 
 
         minusSymbolButton.setOnClickListener {
-            var newNumber = 0
+            var newNumber: Int
             if (symbolText.text.toString() == "1") {
                 symbolText.text = "0"
                 minusSymbolButton.isEnabled = false
@@ -126,7 +126,7 @@ class GeneratorFragment : Fragment() {
         }
 
         plusSymbolButton.setOnClickListener {
-            var newNumber = 0
+            var newNumber: Int
             if (symbolText.text.toString() == "4") {
                 symbolText.text = "5"
                 plusSymbolButton.isEnabled = false
