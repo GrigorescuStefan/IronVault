@@ -12,10 +12,10 @@
         android:id="@+id/generatorTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
         android:text="Generator"
         android:textColor="#FFFFFF"
-        android:gravity="center_vertical"
-        android:layout_marginTop="5dp"
         android:textStyle="bold"
         tools:ignore="HardcodedText" />
 
@@ -39,16 +39,20 @@
             android:id="@+id/passwordText"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
             android:layout_weight="2"
-            android:text="" />
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
 
         <ImageButton
             android:id="@+id/copyButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
             android:background="@android:color/transparent"
             android:contentDescription="button to copy the password"
-            android:layout_marginEnd="5dp"
             android:src="@drawable/copy"
             tools:ignore="HardcodedText,TouchTargetSizeCheck,RedundantDescriptionCheck" />
 
@@ -56,18 +60,19 @@
             android:id="@+id/refreshButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
             android:background="@android:color/transparent"
             android:contentDescription="button to refresh the password"
-            android:layout_marginEnd="5dp"
             android:src="@drawable/refresh"
             tools:ignore="HardcodedText,TouchTargetSizeCheck,RedundantDescriptionCheck" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/passwordLength"
@@ -82,17 +87,17 @@
 
         <SeekBar
             android:id="@+id/seekBar"
+            style="@style/MySeekBar"
             android:layout_width="0dp"
             android:layout_height="35dp"
-            android:min="8"
-            android:progress="12"
-            android:max="32"
-            style="@style/MySeekBar"
             android:layout_weight="1"
+            android:max="32"
+            android:min="12"
             tools:targetApi="o" />
 
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -104,92 +109,95 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:checked="false"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
             android:text=" Uppercase (A-Z)"
-            android:textStyle="bold"
             android:textOff="Off"
             android:textOn="On"
             android:textSize="16sp"
-            android:clickable="true"
-            android:focusable="true"
+            android:textStyle="bold"
             android:theme="@style/FullScreenTheme"
-            android:gravity="center_vertical"
             tools:ignore="HardcodedText,VisualLintButtonSize" />
 
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switchLowerCase"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:checked="false"
-        android:clickable="true"
-        android:focusable="true"
-        android:text=" Lowercase (a-z)"
-        android:textOff="Off"
-        android:textOn="On"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:theme="@style/FullScreenTheme"
-        android:gravity="center_vertical"
-        tools:ignore="HardcodedText,VisualLintButtonSize" />
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchLowerCase"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:checked="false"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:text=" Lowercase (a-z)"
+            android:textOff="Off"
+            android:textOn="On"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:theme="@style/FullScreenTheme"
+            tools:ignore="HardcodedText,VisualLintButtonSize" />
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switchNumbers"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:checked="false"
-        android:clickable="true"
-        android:focusable="true"
-        android:text=" Numbers (1-9)"
-        android:textOff="Off"
-        android:textOn="On"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:theme="@style/FullScreenTheme"
-        android:gravity="center_vertical"
-        tools:ignore="HardcodedText,VisualLintButtonSize" />
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchNumbers"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:checked="false"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:text=" Numbers (1-9)"
+            android:textOff="Off"
+            android:textOn="On"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:theme="@style/FullScreenTheme"
+            tools:ignore="HardcodedText,VisualLintButtonSize" />
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switchSymbols"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:checked="false"
-        android:clickable="true"
-        android:focusable="true"
-        android:text=" Symbols (^%!@)"
-        android:textOff="Off"
-        android:textOn="On"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:theme="@style/FullScreenTheme"
-        android:gravity="center_vertical"
-        tools:ignore="HardcodedText,VisualLintButtonSize" />
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchSymbols"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:checked="false"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:text=" Symbols (^%!@)"
+            android:textOff="Off"
+            android:textOn="On"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:theme="@style/FullScreenTheme"
+            tools:ignore="HardcodedText,VisualLintButtonSize" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/minimumNumbers"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:text=" Minimum Numbers:"
-            android:gravity="center_vertical"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
             android:layout_marginEnd="35dp"
             android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:text=" Minimum Numbers:"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
             tools:ignore="HardcodedText" />
+
         <TextView
             android:id="@+id/numberText"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:text="1"
-            android:gravity="center_vertical"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_weight="0"
             android:layout_marginEnd="5dp"
+            android:layout_weight="0"
+            android:gravity="center_vertical"
+            android:text="1"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
             tools:ignore="HardcodedText" />
 
         <Button
@@ -216,19 +224,21 @@
             android:textStyle="bold"
             tools:ignore="HardcodedText,TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:text=" Minimum Symbols: "
-            android:gravity="center_vertical"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
             android:layout_marginEnd="35dp"
             android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:text=" Minimum Symbols: "
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
             tools:ignore="HardcodedText" />
 
         <TextView

@@ -1,8 +1,8 @@
 package com.example.ironvault
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
@@ -19,51 +19,36 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.launch
-import java.io.BufferedReader
-import java.io.FileInputStream
-import java.io.InputStreamReader
-import java.security.MessageDigest
-import javax.crypto.SecretKey
-import javax.crypto.spec.SecretKeySpec
+import java.security.SecureRandom
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class CreateAccountActivity : ComponentActivity() {
 
-    private val minNumberOfCharacters = 8
+    private val minNumberOfCharacters = 12
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.create_account_layout)
-        val (privateKey, iv) = readEncryptionDataFromFile(applicationContext)
 
-        if (privateKey.isNotEmpty()) {
-            val secretKey = SecretKeySpec(privateKey.toByteArray(), "AES")
-            val emailAddressTextView: TextView = findViewById(R.id.emailAddress)
-            val masterPasswordTextView: TextView = findViewById(R.id.masterPassword)
-            val reTypeMasterPasswordTextView: TextView = findViewById(R.id.reTypeMasterPassword)
-            val passwordHintTextView: TextView = findViewById(R.id.MasterPasswordHint)
-            val switchCompatCheck: SwitchCompat = findViewById(R.id.switchCompat)
-            val continueButton: Button = findViewById(R.id.createAccountButton)
+        val emailAddressTextView: TextView = findViewById(R.id.emailAddress)
+        val masterPasswordTextView: TextView = findViewById(R.id.masterPassword)
+        val reTypeMasterPasswordTextView: TextView = findViewById(R.id.reTypeMasterPassword)
+        val passwordHintTextView: TextView = findViewById(R.id.MasterPasswordHint)
+        val switchCompatCheck: SwitchCompat = findViewById(R.id.switchCompat)
+        val continueButton: Button = findViewById(R.id.createAccountButton)
 
-            addUser(
-                secretKey,
-                iv,
-                continueButton,
-                emailAddressTextView,
-                masterPasswordTextView,
-                reTypeMasterPasswordTextView,
-                passwordHintTextView,
-                switchCompatCheck
-            )
-        } else {
-            Log.e("PrivateKeyMissing: ", "Private Key is Empty!")
-        }
+        addUser(
+            continueButton,
+            emailAddressTextView,
+            masterPasswordTextView,
+            reTypeMasterPasswordTextView,
+            passwordHintTextView,
+            switchCompatCheck
+        )
     }
 
     private fun addUser(
-        secretKey: SecretKey,
-        initVector: String,
         button: Button,
         emailAddressTextView: TextView,
         masterPass: TextView,
@@ -80,6 +65,7 @@ class CreateAccountActivity : ComponentActivity() {
             "emailAddress" to "",
             "masterPassword" to "",
             "passwordHint" to "",
+            "iv" to ""
         )
 
         button.setOnClickListener {
@@ -163,29 +149,33 @@ class CreateAccountActivity : ComponentActivity() {
                         )
                         emailAddressTextView.text = ""
                     } else {
+                        val hashedKey = UtilityFunctions.sha256(masterPass.text.toString())
+                        val hashedEmail =
+                            UtilityFunctions.sha256(emailAddressTextView.text.toString())
+                        val secretKeyAfterHash =
+                            UtilityFunctions.generateAESKeyFromHash(hashedKey.toByteArray())
+                        val initialVector = ByteArray(16)
+                        SecureRandom().nextBytes(initialVector)
+                        val initVectorString = Base64.encodeToString(initialVector, Base64.DEFAULT)
                         newUser.replace(
                             "emailAddress",
-                            UtilityFunctions.encryptAES(
-                                emailAddressTextView.text.toString(),
-                                secretKey,
-                                initVector
-                            )
+                            hashedEmail
                         )
                         newUser.replace(
                             "masterPassword",
-                            UtilityFunctions.encryptAES(
-                                masterPass.text.toString(),
-                                secretKey,
-                                initVector
-                            )
+                            hashedKey
                         )
                         newUser.replace(
                             "passwordHint",
                             UtilityFunctions.encryptAES(
                                 passHint.text.toString(),
-                                secretKey,
-                                initVector
+                                secretKeyAfterHash,
+                                initialVector
                             )
+                        )
+                        newUser.replace(
+                            "iv",
+                            initVectorString
                         )
                         addUserToDatabase(users, newUser)
                     }
@@ -232,25 +222,9 @@ class CreateAccountActivity : ComponentActivity() {
         }
     }
 
-    private fun sha1(input: String): String {
-        val digest = MessageDigest.getInstance("SHA-1")
-        val result = digest.digest(input.toByteArray())
-        val hexString = StringBuilder()
-
-        for (byte in result) {
-            val hex = Integer.toHexString(0xFF and byte.toInt())
-            if (hex.length == 1) {
-                hexString.append('0')
-            }
-            hexString.append(hex)
-        }
-
-        return hexString.toString().uppercase()
-    }
-
     private suspend fun passwordBreachCheckAsync(password: String): Int {
         return suspendCoroutine { continuation ->
-            val shaPassword = sha1(password)
+            val shaPassword = UtilityFunctions.sha1(password)
             val firstFiveHexCharacters = shaPassword.substring(0, 5).uppercase()
             val apiURL = "https://api.pwnedpasswords.com/range/$firstFiveHexCharacters"
             val queue = Volley.newRequestQueue(this)
@@ -289,28 +263,28 @@ class CreateAccountActivity : ComponentActivity() {
         return map
     }
 
-    private fun readEncryptionDataFromFile(context: Context): Pair<String, String> {
-        var privateKey = ""
-        var iv = ""
-
-        try {
-            val filename = "data.txt"
-            val fileInputStream: FileInputStream = context.openFileInput(filename)
-            val inputStreamReader = InputStreamReader(fileInputStream)
-            val bufferedReader = BufferedReader(inputStreamReader)
-
-            val line = bufferedReader.readLine()
-            val parts = line.split(",")
-            privateKey = parts[0]
-            iv = parts[1]
-            bufferedReader.close()
-            inputStreamReader.close()
-            fileInputStream.close()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return Pair(privateKey, iv)
-    }
+//    private fun readEncryptionDataFromFile(context: Context): Pair<String, String> {
+//        var privateKey = ""
+//        var iv = ""
+//
+//        try {
+//            val filename = "data.txt"
+//            val fileInputStream: FileInputStream = context.openFileInput(filename)
+//            val inputStreamReader = InputStreamReader(fileInputStream)
+//            val bufferedReader = BufferedReader(inputStreamReader)
+//
+//            val line = bufferedReader.readLine()
+//            val parts = line.split(",")
+//            privateKey = parts[0]
+//            iv = parts[1]
+//            bufferedReader.close()
+//            inputStreamReader.close()
+//            fileInputStream.close()
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
+//        return Pair(privateKey, iv)
+//    }
 
     //Used to save the necessary encryption keys to a file in internal storage
     //Looking for a better alternatives

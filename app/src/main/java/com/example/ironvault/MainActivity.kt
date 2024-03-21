@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat
 import com.example.ironvault.ui.theme.IronVaultTheme
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
-import javax.crypto.spec.SecretKeySpec
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,55 +34,51 @@ class MainActivity : ComponentActivity() {
             startActivity(sendLoginData)
         }
 
-        val (privateKey, iv) = UtilityFunctions.readEncryptionDataFromFile(applicationContext)
+//        val (privateKey, iv) = UtilityFunctions.readEncryptionDataFromFile(applicationContext)
 
-        if (privateKey.isNotEmpty()) {
-            val secretKey = SecretKeySpec(privateKey.toByteArray(), "AES")
+//        if (privateKey.isNotEmpty()) {
+//            val secretKey = SecretKeySpec(privateKey.toByteArray(), "AES")
 
-            continueButton.setOnClickListener {
-                continueButton.isEnabled = false
-                continueButton.setBackgroundColor(switchOffColor)
-                if (UtilityFunctions.checkEmptyString(emailAddress.text.toString())) {
-                    UtilityFunctions.showToastMessage(this@MainActivity, "Email field cannot be left empty!")
+        continueButton.setOnClickListener {
+            continueButton.isEnabled = false
+            continueButton.setBackgroundColor(switchOffColor)
+            if (UtilityFunctions.checkEmptyString(emailAddress.text.toString())) {
+                UtilityFunctions.showToastMessage(
+                    this@MainActivity,
+                    "Email field cannot be left empty!"
+                )
+                continueButton.isEnabled = true
+                continueButton.setBackgroundColor(switchOnColor)
+                return@setOnClickListener
+            }
+            if (!UtilityFunctions.isValidEmail(emailAddress.text.toString())) {
+                UtilityFunctions.showToastMessage(this@MainActivity, "Invalid email address!")
+                emailAddress.text = ""
+                continueButton.isEnabled = true
+                continueButton.setBackgroundColor(switchOnColor)
+                return@setOnClickListener
+            }
+            db.collection("users").get().addOnSuccessListener { documents ->
+                var emailFound = false
+                for (document in documents) {
+                    val emailAddressField = document.getString("emailAddress")
+                    if (emailAddressField == UtilityFunctions.sha256(emailAddress.text.toString())) {
+                        emailFound = true
+                        val bundledData = UtilityFunctions.convertMapToBundle(document.getData())
+                        val sendLoginData = Intent(this, AuthenticationActivity::class.java)
+                        sendLoginData.putExtra("loginData", bundledData)
+                        startActivity(sendLoginData)
+                        break
+                    }
+                }
+                if (!emailFound) {
+                    UtilityFunctions.showToastMessage(this@MainActivity, "Email address not found!")
                     continueButton.isEnabled = true
                     continueButton.setBackgroundColor(switchOnColor)
-                    return@setOnClickListener
-                }
-                if (!UtilityFunctions.isValidEmail(emailAddress.text.toString())) {
-                    UtilityFunctions.showToastMessage(this@MainActivity, "Invalid email address!")
-                    emailAddress.text = ""
-                    continueButton.isEnabled = true
-                    continueButton.setBackgroundColor(switchOnColor)
-                    return@setOnClickListener
-                }
-                db.collection("users").get().addOnSuccessListener { documents ->
-                    var emailFound = false
-                    for (document in documents) {
-                        val emailAddressField = document.getString("emailAddress")
-                        if (emailAddressField == UtilityFunctions.encryptAES(
-                                emailAddress.text.toString(),
-                                secretKey,
-                                iv
-                            )
-                        ) {
-                            emailFound = true
-                            val bundledData = UtilityFunctions.convertMapToBundle(document.getData())
-                            val sendLoginData = Intent(this, AuthenticationActivity::class.java)
-                            sendLoginData.putExtra("loginData", bundledData)
-                            startActivity(sendLoginData)
-                            break
-                        }
-                    }
-                    if (!emailFound) {
-                        UtilityFunctions.showToastMessage(this@MainActivity, "Email address not found!")
-                        continueButton.isEnabled = true
-                        continueButton.setBackgroundColor(switchOnColor)
-                    }
                 }
             }
         }
     }
-
 }
 
 @Preview(showBackground = true)
