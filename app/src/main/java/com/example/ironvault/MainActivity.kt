@@ -33,12 +33,6 @@ class MainActivity : ComponentActivity() {
             val sendLoginData = Intent(this, AuthenticationActivity::class.java)
             startActivity(sendLoginData)
         }
-
-//        val (privateKey, iv) = UtilityFunctions.readEncryptionDataFromFile(applicationContext)
-
-//        if (privateKey.isNotEmpty()) {
-//            val secretKey = SecretKeySpec(privateKey.toByteArray(), "AES")
-
         continueButton.setOnClickListener {
             continueButton.isEnabled = false
             continueButton.setBackgroundColor(switchOffColor)

@@ -262,44 +262,4 @@ class CreateAccountActivity : ComponentActivity() {
 
         return map
     }
-
-//    private fun readEncryptionDataFromFile(context: Context): Pair<String, String> {
-//        var privateKey = ""
-//        var iv = ""
-//
-//        try {
-//            val filename = "data.txt"
-//            val fileInputStream: FileInputStream = context.openFileInput(filename)
-//            val inputStreamReader = InputStreamReader(fileInputStream)
-//            val bufferedReader = BufferedReader(inputStreamReader)
-//
-//            val line = bufferedReader.readLine()
-//            val parts = line.split(",")
-//            privateKey = parts[0]
-//            iv = parts[1]
-//            bufferedReader.close()
-//            inputStreamReader.close()
-//            fileInputStream.close()
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//        }
-//        return Pair(privateKey, iv)
-//    }
-
-    //Used to save the necessary encryption keys to a file in internal storage
-    //Looking for a better alternatives
-    // FOUND BETTER ALTERNATIVE - TO DO - IMPLEMENT WHAT YOU LEARNED - 07/03/2024
-    // use the hashed master password as the secret key, as well as initializing the iv at every new master account creation
-    // encrypt and decrypt based on these values
-//    private fun saveToFile(context: Context, data: String) {
-//        try {
-//            val filename = "data.txt"
-//            val fileOutputStream: FileOutputStream =
-//                context.openFileOutput(filename, Context.MODE_PRIVATE)
-//            fileOutputStream.write(data.toByteArray())
-//            fileOutputStream.close()
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//        }
-//    }
 }
