@@ -423,7 +423,9 @@ class GeneratorFragment : Fragment() {
                 }
             }
             if (!upperSwitch.isChecked && !lowerSwitch.isChecked && numberOfCharacters != 0) { // adaug numarul de litere mici ramase in cazul in care nu am literele mici activate, dar mai am numar de caractere ramase
-                lowerSwitch.setChecked(true)
+                withContext(Dispatchers.Main){
+                    lowerSwitch.isChecked = true
+                }
                 repeat(numberOfCharacters) {
                     newPassword += lowercaseChars.random()
                 }
