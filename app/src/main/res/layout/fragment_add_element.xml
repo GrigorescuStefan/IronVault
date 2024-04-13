@@ -24,10 +24,12 @@
             tools:ignore="HardcodedText" />
 
         <EditText
+            android:id="@+id/textFieldURL"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:inputType="text"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
+            android:inputType="textUri"
+            android:minHeight="48dp"
             tools:ignore="LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
 
         <TextView
@@ -42,8 +44,9 @@
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:inputType="text"
+            android:id="@+id/textFieldUsername"
             android:layout_marginBottom="15dp"
             tools:ignore="LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
 
@@ -60,7 +63,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:inputType="text"
+            android:id="@+id/textFieldPassword"
+            android:inputType="textPassword"
             android:layout_marginBottom="15dp"
             tools:ignore="LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
 

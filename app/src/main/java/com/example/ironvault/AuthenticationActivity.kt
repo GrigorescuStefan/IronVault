@@ -9,6 +9,7 @@ import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
 
 class AuthenticationActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.authentication_layout)

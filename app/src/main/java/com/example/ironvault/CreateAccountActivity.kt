@@ -6,7 +6,6 @@ import android.util.Base64
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
@@ -209,7 +208,7 @@ class CreateAccountActivity : ComponentActivity() {
     private fun addUserToDatabase(users: CollectionReference, newUser: HashMap<String, String>) {
         if (!UtilityFunctions.checkEmptyString(newUser.getValue("emailAddress"))) {
             users.add(newUser).addOnSuccessListener {
-                Toast.makeText(this, "User was registered successfully!", Toast.LENGTH_SHORT).show()
+                UtilityFunctions.showToastMessage(this, "User was registered successfully!")
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
