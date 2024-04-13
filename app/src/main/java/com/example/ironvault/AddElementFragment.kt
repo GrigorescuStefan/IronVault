@@ -136,6 +136,8 @@ class AddElementFragment : DialogFragment() {
             view?.findViewById<EditText>(R.id.textFieldUsername)?.setText("")
             view?.findViewById<EditText>(R.id.textFieldPassword)?.setText("")
             dismiss()
+            // Navigate back to VaultFragment after adding the account
+            parentFragmentManager.popBackStack() // This should take you back to the VaultFragment
         }
             .addOnFailureListener {
                 UtilityFunctions.showToastMessage(

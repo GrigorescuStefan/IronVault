@@ -126,6 +126,13 @@ class CreateAccountActivity : ComponentActivity() {
                     button.setBackgroundColor(switchOnColor)
                     return@launch
                 }
+                if(masterPass.text.toString() == passHint.text.toString() || passHint.text.toString().contains(masterPass.text.toString())){
+                    UtilityFunctions.showToastMessage(this@CreateAccountActivity, "Your password cannot be contained, or itself be your password hint!")
+                    passHint.text = ""
+                    button.isEnabled = true
+                    button.setBackgroundColor(switchOnColor)
+                    return@launch
+                }
 
                 if (switchCompatCheck.isChecked) {
                     val occurrences = passwordBreachCheckAsync(masterPass.text.toString())
