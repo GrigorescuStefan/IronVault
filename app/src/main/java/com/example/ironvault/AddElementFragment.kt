@@ -2,6 +2,7 @@ package com.example.ironvault
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,14 +27,20 @@ class AddElementFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         val switchOffColor = ContextCompat.getColor(requireContext(), R.color.SwitchOff)
         val switchOnColor = ContextCompat.getColor(requireContext(), R.color.SwitchOn)
-        val emailAddress: String = arguments?.getString("emailAddress").toString()
         val closeButton: Button = view.findViewById(R.id.closeButton)
         val saveButton: Button = view.findViewById(R.id.saveButton)
         saveButton.isEnabled = true
         closeButton.isEnabled = true
+
+        val emailAddress: String = arguments?.getString("emailAddress").toString()
+        val masterPassword: String = arguments?.getString("masterPassword").toString()
+        val initVector: String = arguments?.getString("iv").toString()
+        val encryptionKey = UtilityFunctions.generateAESKeyFromHash(masterPassword.toByteArray())
+        val iv = Base64.decode(initVector, Base64.DEFAULT)
         val textFieldURL: EditText = view.findViewById(R.id.textFieldURL)
         val textFieldUsername: EditText = view.findViewById(R.id.textFieldUsername)
         val textFieldPassword: EditText = view.findViewById(R.id.textFieldPassword)
+
         val db = Firebase.firestore
         val accounts = db.collection("accounts")
         val newAccount = hashMapOf(
@@ -106,9 +113,9 @@ class AddElementFragment : DialogFragment() {
                         closeButton.setBackgroundColor(switchOnColor)
                         break
                     } else {
-                        newAccount.replace("url", textFieldURL.text.toString())
-                        newAccount.replace("username", textFieldUsername.text.toString())
-                        newAccount.replace("password", textFieldPassword.text.toString())
+                        newAccount.replace("url", UtilityFunctions.encryptAES(textFieldURL.text.toString(), encryptionKey, iv))
+                        newAccount.replace("username", UtilityFunctions.encryptAES(textFieldUsername.text.toString(), encryptionKey, iv))
+                        newAccount.replace("password", UtilityFunctions.encryptAES(textFieldPassword.text.toString(), encryptionKey, iv))
                         addAccountToDatabase(accounts, newAccount, switchOnColor)
                     }
                 }

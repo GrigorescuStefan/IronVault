@@ -16,6 +16,14 @@ class FragmentsActivity : FragmentActivity() {
         setContentView(R.layout.fragments_layout)
 
         val bundledData = intent.getBundleExtra("credentials")
+//        INITIAL SEND OF DATA THROUGH BUNDLE, SO YOU WON'T NEED TO RELOAD THE VAULT FRAGMENT
+        val args = Bundle().apply {
+            putBundle("credentials", bundledData)
+        }
+        val vaultFragment = VaultFragment().apply {
+            arguments = args
+        }
+        replaceFragment(vaultFragment)
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment

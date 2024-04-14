@@ -40,6 +40,7 @@ class AuthenticationActivity : ComponentActivity() {
             if (UtilityFunctions.sha256(passwordField.text.toString()) == passwordFromDB) {
                 val sendCredentials = Intent(this, FragmentsActivity::class.java)
                 sendCredentials.putExtra("credentials", bundledData)
+                passwordField.text = ""
                 startActivity(sendCredentials)
             } else {
                 UtilityFunctions.showToastMessage(this, "Password is incorrect!")

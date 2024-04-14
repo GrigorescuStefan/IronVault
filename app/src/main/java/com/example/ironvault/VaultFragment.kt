@@ -24,9 +24,13 @@ class VaultFragment : Fragment() {
         addButton.setOnClickListener {
             val dialogFragment = AddElementFragment()
             val emailAddress = argumentsBundle?.getBundle("credentials")?.getString("emailAddress")
-            if (emailAddress != null) {
+            val masterPassword = argumentsBundle?.getBundle("credentials")?.getString("masterPassword")
+            val iv = argumentsBundle?.getBundle("credentials")?.getString("iv")
+            if (emailAddress != null && masterPassword != null && iv != null) {
                 val bundle = Bundle().apply {
                     putString("emailAddress", emailAddress)
+                    putString("masterPassword", masterPassword)
+                    putString("iv", iv)
                 }
                 dialogFragment.arguments = bundle
             }
