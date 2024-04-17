@@ -61,7 +61,9 @@ class MainActivity : ComponentActivity() {
                         val bundledData = UtilityFunctions.convertMapToBundle(document.getData())
                         val sendLoginData = Intent(this, AuthenticationActivity::class.java)
                         sendLoginData.putExtra("loginData", bundledData)
+                        emailAddress.text = ""
                         startActivity(sendLoginData)
+                        finish()
                         break
                     }
                 }

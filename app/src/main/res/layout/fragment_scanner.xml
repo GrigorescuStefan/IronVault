@@ -15,7 +15,7 @@
         android:layout_marginTop="5dp"
         android:gravity="center_vertical"
         android:text="Scanner"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/WhiteishTextColor"
         android:textStyle="bold"
         tools:ignore="HardcodedText" />
 
@@ -33,7 +33,7 @@
         android:layout_marginTop="60dp"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        android:textColor="@color/WhiteishTextColor"
         android:text="Check if your password is in a data breach"
         tools:ignore="HardcodedText" />
 
@@ -71,7 +71,7 @@
         android:layout_margin="45dp"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        android:textColor="@color/WhiteishTextColor"
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         tools:ignore="HardcodedText" />

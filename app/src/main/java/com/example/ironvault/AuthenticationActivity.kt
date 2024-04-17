@@ -42,6 +42,7 @@ class AuthenticationActivity : ComponentActivity() {
                 sendCredentials.putExtra("credentials", bundledData)
                 passwordField.text = ""
                 startActivity(sendCredentials)
+                finish()
             } else {
                 UtilityFunctions.showToastMessage(this, "Password is incorrect!")
                 logInButton.isEnabled = true
