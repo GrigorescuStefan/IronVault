@@ -1,6 +1,7 @@
 package com.example.ironvault
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Base64
 import android.view.LayoutInflater
@@ -99,9 +100,7 @@ class AddElementFragment : DialogFragment() {
                 }
                 for (document in documents) {
                     val urlAddressField = document.getString("url")
-                    if (urlAddressField == textFieldURL.text.toString() && emailAddress == document.getString(
-                            "emailAddress"
-                        )
+                    if (urlAddressField == UtilityFunctions.encryptAES(textFieldURL.text.toString(), encryptionKey, iv) && emailAddress == document.getString("emailAddress")
                     ) {
                         UtilityFunctions.showToastMessage(
                             requireContext(),
@@ -111,12 +110,12 @@ class AddElementFragment : DialogFragment() {
                         saveButton.setBackgroundColor(switchOnColor)
                         closeButton.isEnabled = true
                         closeButton.setBackgroundColor(switchOnColor)
-                        break
+                        return@addOnSuccessListener
                     } else {
                         newAccount.replace("url", UtilityFunctions.encryptAES(textFieldURL.text.toString(), encryptionKey, iv))
                         newAccount.replace("username", UtilityFunctions.encryptAES(textFieldUsername.text.toString(), encryptionKey, iv))
                         newAccount.replace("password", UtilityFunctions.encryptAES(textFieldPassword.text.toString(), encryptionKey, iv))
-                        addAccountToDatabase(accounts, newAccount, switchOnColor)
+                        addAccountToDatabase(requireContext(), accounts, newAccount, switchOnColor)
                     }
                 }
             }
@@ -130,13 +129,14 @@ class AddElementFragment : DialogFragment() {
     }
 
     private fun addAccountToDatabase(
+        context: Context,
         accounts: CollectionReference,
         newAccount: HashMap<String, String>,
         switchOnColor: Int
     ) {
         accounts.add(newAccount).addOnSuccessListener {
             UtilityFunctions.showToastMessage(
-                requireContext(),
+                context,
                 "Account was registered successfully!"
             )
             view?.findViewById<EditText>(R.id.textFieldURL)?.setText("")
@@ -148,7 +148,7 @@ class AddElementFragment : DialogFragment() {
         }
             .addOnFailureListener {
                 UtilityFunctions.showToastMessage(
-                    requireContext(),
+                    context,
                     "Account could not registered!"
                 )
                 view?.findViewById<Button>(R.id.saveButton)?.isEnabled = true

@@ -6,16 +6,16 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".GeneratorFragment">
+    tools:context=".VaultFragment">
 
     <TextView
-        android:id="@+id/generatorTitle"
+        android:id="@+id/vaultTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:gravity="center_vertical"
         android:text="Vault"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/WhiteishTextColor"
         android:textStyle="bold"
         tools:ignore="HardcodedText" />
 
@@ -41,7 +41,7 @@
             android:gravity="center_vertical"
             android:text=""
             android:inputType="text"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/WhiteishTextColor"
             android:textSize="16sp"
             tools:ignore="LabelFor" />
 

@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="#D9D9D9"
+            android:textColor="@color/WhiteishTextColor"
             android:textSize="16sp"
             android:text="URL"
             tools:ignore="HardcodedText" />
@@ -30,13 +30,14 @@
             android:layout_marginBottom="15dp"
             android:inputType="textUri"
             android:minHeight="48dp"
+            android:textColor="@color/WhiteishTextColor"
             tools:ignore="LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:textColor="#D9D9D9"
+            android:textColor="@color/WhiteishTextColor"
             android:textSize="16sp"
             android:layout_gravity="center"
             android:text="Username"
@@ -48,13 +49,14 @@
             android:inputType="text"
             android:id="@+id/textFieldUsername"
             android:layout_marginBottom="15dp"
+            android:textColor="@color/WhiteishTextColor"
             tools:ignore="LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:textColor="#D9D9D9"
+            android:textColor="@color/WhiteishTextColor"
             android:textSize="16sp"
             android:layout_gravity="center"
             android:text="Password"
@@ -66,6 +68,7 @@
             android:id="@+id/textFieldPassword"
             android:inputType="textPassword"
             android:layout_marginBottom="15dp"
+            android:textColor="@color/WhiteishTextColor"
             tools:ignore="LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
 
         <LinearLayout
@@ -78,7 +81,7 @@
             android:layout_width="75dp"
             android:layout_height="wrap_content"
             android:text="Save"
-            android:textColor="#D9D9D9"
+            android:textColor="@color/WhiteishTextColor"
             android:layout_marginEnd="50dp"
             android:textSize="16sp"
             android:id="@+id/saveButton"
@@ -93,7 +96,7 @@
             android:layout_width="75dp"
             android:layout_height="wrap_content"
             android:text="Close"
-            android:textColor="#D9D9D9"
+            android:textColor="@color/WhiteishTextColor"
             android:textSize="16sp"
             android:id="@+id/closeButton"
             android:background="#650DD9"

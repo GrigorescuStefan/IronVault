@@ -11,4 +11,7 @@
     <color name="SwitchOff">#646168</color>
     <color name="SwitchTrackOff">#201C25</color>
     <color name="IronVaultBG">#01090E</color>
+    <color name="WhiteishTextColor">#D9D9D9</color>
+    <color name="RedGradient">#930000</color>
+    <color name="GreenGradient">#1B9300</color>
 </resources>

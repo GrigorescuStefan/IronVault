@@ -1,16 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context=".ScannerFragment">
+
+    <TextView
+        android:id="@+id/scannerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        android:text="Scanner"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
+
+    <View
+        android:id="@+id/delimitingLine"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="15dp"
+        android:background="#FFFFFF"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Scanner Fragment"
-        android:textSize="26sp"
-        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:text="Check if your password is in a data breach"
         tools:ignore="HardcodedText" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/passwordCheck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:gravity="center_horizontal"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:text=""
+        android:textColor="@color/WhiteishTextColor"
+        tools:ignore="LabelFor,TextFields,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_marginTop="25dp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        android:textColor="@color/WhiteishTextColor"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:background="@color/SwitchOn"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/returningText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="45dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:text=""
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        tools:ignore="HardcodedText" />
+</LinearLayout>
