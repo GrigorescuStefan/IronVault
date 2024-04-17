@@ -28,7 +28,7 @@
         app:layout_constraintHorizontal_bias="0.0" />
 
     <Button
-    android:id="@+id/submitButton"
+    android:id="@+id/changeMasterPasswordButton"
     android:layout_marginTop="15dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

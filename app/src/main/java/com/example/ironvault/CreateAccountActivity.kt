@@ -105,7 +105,7 @@ class CreateAccountActivity : ComponentActivity() {
                 if (masterPass.text.toString().length < minNumberOfCharacters || reTypeMasterPass.text.toString().length < minNumberOfCharacters) {
                     UtilityFunctions.showToastMessage(
                         this@CreateAccountActivity,
-                        "Passwords cannot be smaller than 8 characters!"
+                        "Passwords cannot be smaller than $minNumberOfCharacters characters!"
                     )
                     button.isEnabled = true
                     button.setBackgroundColor(switchOnColor)

@@ -20,10 +20,10 @@ class FragmentsActivity : FragmentActivity() {
         val args = Bundle().apply {
             putBundle("credentials", bundledData)
         }
-        val vaultFragment = VaultFragment().apply {
+        val initialVaultFragment = VaultFragment().apply {
             arguments = args
         }
-        replaceFragment(vaultFragment)
+        replaceFragment(initialVaultFragment)
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -32,11 +32,11 @@ class FragmentsActivity : FragmentActivity() {
         navigationMenu.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.myVault -> {
-                    val args = Bundle().apply {
+                    val vaultArgs = Bundle().apply {
                         putBundle("credentials", bundledData)
                     }
                     val vaultFragment = VaultFragment().apply {
-                        arguments = args
+                        arguments = vaultArgs
                     }
                     replaceFragment(vaultFragment)
                     true
@@ -53,7 +53,13 @@ class FragmentsActivity : FragmentActivity() {
                 }
 
                 R.id.settings -> {
-                    replaceFragment(SettingsFragment())
+                    val settingsArgs = Bundle().apply {
+                        putBundle("credentials", bundledData)
+                    }
+                    val settingsFragment = SettingsFragment().apply {
+                        arguments = settingsArgs
+                    }
+                    replaceFragment(settingsFragment)
                     true
                 }
 
