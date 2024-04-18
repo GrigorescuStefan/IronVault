@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:baselineAligned="false">
+
+    <!-- LinearLayout to hold the two TextViews vertically -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <!-- First TextView -->
+        <TextView
+            android:id="@+id/textURL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="URL"
+            android:textColor="@color/WhiteishTextColor"
+            android:textSize="18sp"
+            tools:ignore="HardcodedText" />
+
+        <!-- Second TextView -->
+        <TextView
+            android:id="@+id/textUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="username"
+            android:textSize="16sp"
+            android:layout_marginTop="1dp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <!-- Layout to wrap the ImageButton -->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:onClick="editButtonClick"
+        android:padding="10dp"
+        tools:ignore="TouchTargetSizeCheck">
+
+        <!-- ImageButton -->
+        <ImageButton
+            android:id="@+id/editButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:contentDescription="button to add element to vault"
+            android:focusable="true"
+            android:onClick="editButtonClick"
+            android:src="@drawable/threedot"
+            tools:ignore="HardcodedText,TouchTargetSizeCheck,RedundantDescriptionCheck" />
+
+    </RelativeLayout>
+
+</LinearLayout>

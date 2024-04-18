@@ -39,11 +39,11 @@
             android:layout_height="match_parent"
             android:layout_toStartOf="@+id/addButton"
             android:gravity="center_vertical"
-            android:text=""
             android:inputType="text"
+            android:text=""
             android:textColor="@color/WhiteishTextColor"
             android:textSize="16sp"
-            tools:ignore="LabelFor" />
+            tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <ImageButton
             android:id="@+id/searchButton"
@@ -75,11 +75,11 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/accountItemsRecycleView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"/>
 
 </LinearLayout>
