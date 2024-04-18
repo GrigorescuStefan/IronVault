@@ -18,10 +18,16 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.firestore
 
 class AddElementFragment : DialogFragment() {
+
+    private var accountAddedListener: OnAccountAddedListener? = null
     private lateinit var fragmentManager: FragmentManager
     override fun onAttach(context: Context) {
         super.onAttach(context)
         fragmentManager = parentFragmentManager
+    }
+
+    fun setOnAccountAddedListener(listener: OnAccountAddedListener) {
+        accountAddedListener = listener
     }
 
     override fun onCreateView(
@@ -122,11 +128,18 @@ class AddElementFragment : DialogFragment() {
                         newAccount.replace("url", UtilityFunctions.encryptAES(textFieldURL.text.toString(), encryptionKey, iv))
                         newAccount.replace("username", UtilityFunctions.encryptAES(textFieldUsername.text.toString(), encryptionKey, iv))
                         newAccount.replace("password", UtilityFunctions.encryptAES(textFieldPassword.text.toString(), encryptionKey, iv))
-                        addAccountToDatabase(requireContext(), accounts, newAccount, switchOnColor, parentFragmentManager)
+                        addAccountToDatabase(requireContext(), accounts, newAccount, switchOnColor)
+                        dismiss()
+                        fragmentManager.popBackStack()
+                        break
                     }
                 }
             }
         }
+    }
+
+    interface OnAccountAddedListener {
+        fun onAccountAdded()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -140,7 +153,6 @@ class AddElementFragment : DialogFragment() {
         accounts: CollectionReference,
         newAccount: HashMap<String, String>,
         switchOnColor: Int,
-        fragmentManager: FragmentManager
     ) {
         accounts.add(newAccount).addOnSuccessListener {
             UtilityFunctions.showToastMessage(
@@ -150,9 +162,7 @@ class AddElementFragment : DialogFragment() {
             view?.findViewById<EditText>(R.id.textFieldURL)?.setText("")
             view?.findViewById<EditText>(R.id.textFieldUsername)?.setText("")
             view?.findViewById<EditText>(R.id.textFieldPassword)?.setText("")
-            dismiss()
-            // Navigate back to VaultFragment after adding the account
-            fragmentManager.popBackStack() // This should take you back to the VaultFragment
+            accountAddedListener?.onAccountAdded()
         }
             .addOnFailureListener {
                 UtilityFunctions.showToastMessage(

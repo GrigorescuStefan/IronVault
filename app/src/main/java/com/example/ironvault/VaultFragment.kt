@@ -12,11 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 
-class VaultFragment : Fragment() {
+class VaultFragment : Fragment(), AddElementFragment.OnAccountAddedListener {
     private lateinit var recyclerView: RecyclerView
 
-    override fun onResume() {
-        super.onResume()
+    override fun onAccountAdded() {
         loadData()
     }
 
@@ -30,18 +29,13 @@ class VaultFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         loadData()
 
-//        val emailAddressFromBundle = argumentsBundle?.getBundle("credentials")?.getString("emailAddress")
-//        val masterPasswordFromBundle = argumentsBundle?.getBundle("credentials")?.getString("masterPassword")
-//        val initialVectorFromBundle = argumentsBundle?.getBundle("credentials")?.getString("iv")
-//        if(emailAddressFromBundle != null && masterPasswordFromBundle != null && initialVectorFromBundle != null) {
-//            fetchDataFromFirestore(emailAddressFromBundle, masterPasswordFromBundle, initialVectorFromBundle)
-//        }
 //        val searchButton: ImageButton = viewInflate.findViewById(R.id.searchButton)
 //        val searchItemText: EditText = viewInflate.findViewById(R.id.searchItem)
         val addButton: ImageButton = viewInflate.findViewById(R.id.addButton)
 
         addButton.setOnClickListener {
             val dialogFragment = AddElementFragment()
+            dialogFragment.setOnAccountAddedListener(this)
             val emailAddress = argumentsBundle?.getBundle("credentials")?.getString("emailAddress")
             val masterPassword =
                 argumentsBundle?.getBundle("credentials")?.getString("masterPassword")
@@ -54,6 +48,7 @@ class VaultFragment : Fragment() {
                 }
                 dialogFragment.arguments = bundle
             }
+
             dialogFragment.show(childFragmentManager, "AddElementFragment")
         }
         return viewInflate
@@ -97,7 +92,6 @@ class VaultFragment : Fragment() {
                     }
                 }
 
-                // After fetching data, pass itemList to your RecyclerView adapter
                 val adapter = ItemAdapter(itemList)
                 recyclerView.adapter = adapter
             }
