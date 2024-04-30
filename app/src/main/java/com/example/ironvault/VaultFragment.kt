@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class VaultFragment : Fragment(), AddElementFragment.OnAccountAddedListener {
     private lateinit var recyclerView: RecyclerView
+    private val itemList = mutableListOf<Item>()
 
     override fun onAccountAdded() {
         loadData()
@@ -29,8 +31,8 @@ class VaultFragment : Fragment(), AddElementFragment.OnAccountAddedListener {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         loadData()
 
-//        val searchButton: ImageButton = viewInflate.findViewById(R.id.searchButton)
-//        val searchItemText: EditText = viewInflate.findViewById(R.id.searchItem)
+        val searchButton: ImageButton = viewInflate.findViewById(R.id.searchButton)
+        val searchItemText: EditText = viewInflate.findViewById(R.id.searchItem)
         val addButton: ImageButton = viewInflate.findViewById(R.id.addButton)
 
         addButton.setOnClickListener {
@@ -51,8 +53,27 @@ class VaultFragment : Fragment(), AddElementFragment.OnAccountAddedListener {
 
             dialogFragment.show(childFragmentManager, "AddElementFragment")
         }
+
+        searchButton.setOnClickListener {
+            val searchText = searchItemText.text.toString()
+            filterData(searchText)
+        }
+
         return viewInflate
     }
+    private fun filterData(query: String) {
+        if (query.isNotEmpty()) {
+            val filteredList = itemList.filter { item ->
+                item.url.contains(query, ignoreCase = true)
+            }
+            val adapter = ItemAdapter(filteredList.toMutableList(), childFragmentManager)
+            recyclerView.adapter = adapter
+        } else {
+            val adapter = ItemAdapter(itemList, childFragmentManager)
+            recyclerView.adapter = adapter
+        }
+    }
+
 
     private fun loadData() {
         val argumentsBundle = arguments
@@ -65,14 +86,14 @@ class VaultFragment : Fragment(), AddElementFragment.OnAccountAddedListener {
         }
     }
 
-    private fun fetchDataFromFirestore(emailFromDB: String, passwordString: String, initVector: String) {
+        private fun fetchDataFromFirestore(emailFromDB: String, passwordString: String, initVector: String) {
         val db = FirebaseFirestore.getInstance()
         val collectionRef = db.collection("accounts")
         val decryptionKey = UtilityFunctions.generateAESKeyFromHash(passwordString.toByteArray())
         val iv = Base64.decode(initVector, Base64.DEFAULT)
         collectionRef.get()
             .addOnSuccessListener { result ->
-                val itemList = mutableListOf<Item>()
+                itemList.clear()
                 for (document in result) {
                     val emailAddress = document.getString("emailAddress")
                     if(emailAddress == emailFromDB) {
@@ -92,7 +113,7 @@ class VaultFragment : Fragment(), AddElementFragment.OnAccountAddedListener {
                     }
                 }
 
-                val adapter = ItemAdapter(itemList)
+                val adapter = ItemAdapter(itemList, childFragmentManager)
                 recyclerView.adapter = adapter
             }
             .addOnFailureListener { exception ->

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="#01090E"
+    tools:context=".EditElementFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#01090E"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/WhiteishTextColor"
+            android:textSize="16sp"
+            android:text="URL"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/textFieldURL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:inputType="textUri"
+            android:minHeight="48dp"
+            android:textColor="@color/WhiteishTextColor"
+            tools:ignore="LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/WhiteishTextColor"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:text="Username"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:inputType="text"
+            android:id="@+id/textFieldUsername"
+            android:layout_marginBottom="15dp"
+            android:textColor="@color/WhiteishTextColor"
+            tools:ignore="LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/WhiteishTextColor"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:text="Password"
+            tools:ignore="HardcodedText" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/SwitchOff">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:id="@+id/textFieldPassword"
+            android:inputType="textPassword"
+            android:layout_marginBottom="15dp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/WhiteishTextColor"
+            tools:ignore="LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+        <Button
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:textColor="@color/WhiteishTextColor"
+            android:layout_marginEnd="50dp"
+            android:textSize="16sp"
+            android:id="@+id/saveButton"
+            android:background="#650DD9"
+            tools:ignore="HardcodedText"
+            android:textStyle="bold"
+            android:typeface="sans"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            style="?android:attr/buttonBarButtonStyle" />
+
+        <Button
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:text="Close"
+            android:textColor="@color/WhiteishTextColor"
+            android:textSize="16sp"
+            android:id="@+id/closeButton"
+            android:background="#650DD9"
+            tools:ignore="HardcodedText"
+            android:textStyle="bold"
+            android:typeface="sans"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            style="?android:attr/buttonBarButtonStyle" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

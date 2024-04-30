@@ -37,12 +37,12 @@
 
     <!-- Layout to wrap the ImageButton -->
     <RelativeLayout
+        android:id="@+id/clickableLayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="true"
         android:gravity="center"
-        android:onClick="editButtonClick"
         android:padding="10dp"
         tools:ignore="TouchTargetSizeCheck">
 
@@ -55,7 +55,6 @@
             android:clickable="true"
             android:contentDescription="button to add element to vault"
             android:focusable="true"
-            android:onClick="editButtonClick"
             android:src="@drawable/threedot"
             tools:ignore="HardcodedText,TouchTargetSizeCheck,RedundantDescriptionCheck" />
 
