@@ -1,3 +1,7 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
+val key: String = gradleLocalProperties(rootDir, providers).getProperty("API_KEY")
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -24,6 +28,9 @@ android {
     }
 
     buildTypes {
+        getByName("debug") {
+            buildConfigField("String", "API_KEY", key)
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -42,6 +49,7 @@ android {
     buildFeatures {
         compose = true
         viewBinding = true
+        buildConfig = true
     }
     composeOptions {
 //        kotlinCompilerExtensionVersion = "1.4.3"
@@ -60,6 +68,7 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore") // USED FOR DATABASE CONNECTIVITY
 
     implementation("com.android.volley:volley:1.2.1") // USED FOR API REQUESTS
+//    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
 
     //Navigation Library

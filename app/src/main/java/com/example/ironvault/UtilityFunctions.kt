@@ -2,14 +2,23 @@ package com.example.ironvault
 
 import android.content.Context
 import android.os.Bundle
-import javax.crypto.Cipher
-import javax.crypto.SecretKey
-import javax.crypto.spec.IvParameterSpec
 import android.util.Base64
 import android.util.Patterns
 import android.widget.Toast
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
 import java.security.MessageDigest
+import javax.crypto.Cipher
+import javax.crypto.SecretKey
+import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 object UtilityFunctions {
 
@@ -41,6 +50,51 @@ object UtilityFunctions {
 
     fun isValidEmail(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+    suspend fun verifyEmail(apiKey: String, email: String, context: Context): Pair<Boolean, Boolean>? {
+        return withContext(Dispatchers.IO) {
+            val jsonBody = JSONObject().apply {
+                put("api_key", apiKey)
+                put("email_address", email)
+            }
+
+            val url = "https://verify.maileroo.net/check"
+            val queue: RequestQueue = Volley.newRequestQueue(context)
+
+            return@withContext suspendCoroutine { continuation ->
+                val jsonObjectRequest = object : JsonObjectRequest(
+                    Method.POST, url, jsonBody,
+                    Response.Listener { response ->
+                        try {
+                            val success = response.getBoolean("success")
+                            if (success) {
+                                val data = response.getJSONObject("data")
+                                val mxFound = data.getBoolean("mx_found")
+                                val disposable = data.getBoolean("disposable")
+                                continuation.resume(Pair(mxFound, disposable))
+                            } else {
+                                continuation.resume(null)
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            continuation.resume(null)
+                        }
+                    },
+                    Response.ErrorListener { error ->
+                        error.printStackTrace()
+                        continuation.resume(null)
+                    }
+                ) {
+                    override fun getHeaders(): MutableMap<String, String> {
+                        val headers = HashMap<String, String>()
+                        headers["Authorization"] = "Bearer $apiKey"
+                        headers["Content-Type"] = "application/json"
+                        return headers
+                    }
+                }
+                queue.add(jsonObjectRequest)
+            }
+        }
     }
 
     fun showToastMessage(context: Context, message: String) {

@@ -90,6 +90,27 @@ class CreateAccountActivity : ComponentActivity() {
                     button.setBackgroundColor(switchOnColor)
                     return@launch
                 }
+                val emailVerificationResult = UtilityFunctions.verifyEmail(
+                    BuildConfig.API_KEY,
+                    emailAddressTextView.text.toString(),
+                    this@CreateAccountActivity
+                )
+                if (emailVerificationResult != null) {
+                    if (!emailVerificationResult.first || emailVerificationResult.second) {
+                        UtilityFunctions.showToastMessage(
+                            this@CreateAccountActivity,
+                            "This email address is invalid or disposable!"
+                        )
+                        button.isEnabled = true
+                        button.setBackgroundColor(switchOnColor)
+                        return@launch
+                    }
+                } else {
+                    UtilityFunctions.showToastMessage(this@CreateAccountActivity, "There was an error with our email verification services!")
+                    button.isEnabled = true
+                    button.setBackgroundColor(switchOnColor)
+                    return@launch
+                }
                 if (UtilityFunctions.checkEmptyString(masterPass.text.toString()) || UtilityFunctions.checkEmptyString(
                         reTypeMasterPass.text.toString()
                     )
@@ -126,8 +147,13 @@ class CreateAccountActivity : ComponentActivity() {
                     button.setBackgroundColor(switchOnColor)
                     return@launch
                 }
-                if(masterPass.text.toString() == passHint.text.toString() || passHint.text.toString().contains(masterPass.text.toString())){
-                    UtilityFunctions.showToastMessage(this@CreateAccountActivity, "Your password cannot be contained, or itself be your password hint!")
+                if (masterPass.text.toString() == passHint.text.toString() || passHint.text.toString()
+                        .contains(masterPass.text.toString())
+                ) {
+                    UtilityFunctions.showToastMessage(
+                        this@CreateAccountActivity,
+                        "Your password cannot be contained, or itself be your password hint!"
+                    )
                     passHint.text = ""
                     button.isEnabled = true
                     button.setBackgroundColor(switchOnColor)
@@ -228,6 +254,8 @@ class CreateAccountActivity : ComponentActivity() {
         }
     }
 
+
+
     private suspend fun passwordBreachCheckAsync(password: String): Int {
         return suspendCoroutine { continuation ->
             val shaPassword = UtilityFunctions.sha1(password)
@@ -244,7 +272,7 @@ class CreateAccountActivity : ComponentActivity() {
                 },
                 { error ->
                     Log.d("---Error---:", error.toString())
-                    continuation.resume(0) // or handle the error accordingly
+                    continuation.resume(0)
                 })
             queue.add(stringRequest)
         }
