@@ -140,8 +140,6 @@ class EditElementFragment : DialogFragment() {
                         )
                     )
                     val encryptedURL = UtilityFunctions.encryptAES(bundleURL, encryptionKey, iv)
-                    Log.d("bundleEmailAddress", bundleEmailAddress)
-                    Log.d("bundleURL", bundleURL)
                     accounts.whereEqualTo("emailAddress", bundleEmailAddress)
                         .whereEqualTo("url", encryptedURL).get()
                         .addOnSuccessListener { queryAccountSnapshot ->

@@ -244,6 +244,7 @@ class CreateAccountActivity : ComponentActivity() {
                 UtilityFunctions.showToastMessage(this, "User was registered successfully!")
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
+                finish()
             }
                 .addOnFailureListener {
                     UtilityFunctions.showToastMessage(
