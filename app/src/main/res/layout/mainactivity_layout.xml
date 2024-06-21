@@ -96,26 +96,26 @@
         app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switchCompatRememberMe"
-        android:layout_width="321dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="32dp"
-        android:checked="false"
-        android:clickable="true"
-        android:focusable="true"
-        android:text=" Remember me"
-        android:textOff="Off"
-        android:textOn="On"
-        android:textSize="16sp"
-        android:textColor="@color/WhiteishTextColor"
-        android:theme="@style/FullScreenTheme"
-        app:layout_constraintBottom_toTopOf="@+id/continueMainButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/underline"
-        app:layout_constraintVertical_bias="0.22"
-        tools:ignore="HardcodedText,VisualLintButtonSize" />
+<!--    <androidx.appcompat.widget.SwitchCompat-->
+<!--        android:id="@+id/switchCompatRememberMe"-->
+<!--        android:layout_width="321dp"-->
+<!--        android:layout_height="49dp"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:checked="false"-->
+<!--        android:clickable="true"-->
+<!--        android:focusable="true"-->
+<!--        android:text=" Remember me"-->
+<!--        android:textOff="Off"-->
+<!--        android:textOn="On"-->
+<!--        android:textSize="16sp"-->
+<!--        android:textColor="@color/WhiteishTextColor"-->
+<!--        android:theme="@style/FullScreenTheme"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/continueMainButton"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/underline"-->
+<!--        app:layout_constraintVertical_bias="0.22"-->
+<!--        tools:ignore="HardcodedText,VisualLintButtonSize" />-->
 
     <Button
         android:id="@+id/continueMainButton"
@@ -133,7 +133,7 @@
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.628"
+        app:layout_constraintVertical_bias="0.518"
         tools:ignore="HardcodedText,VisualLintButtonSize" />
 
     <TextView
@@ -143,12 +143,12 @@
         android:layout_marginTop="40dp"
         android:layout_marginBottom="204dp"
         android:text="Don't have an account?"
-        android:textSize="16sp"
         android:textColor="@color/WhiteishTextColor"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/continueMainButton"
         app:layout_constraintTop_toBottomOf="@+id/continueMainButton"
-        app:layout_constraintVertical_bias="0.586"
+        app:layout_constraintVertical_bias="0.417"
         tools:ignore="HardcodedText" />
 
     <TextView
@@ -165,10 +165,10 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.009"
+        app:layout_constraintHorizontal_bias="0.007"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/continueMainButton"
-        app:layout_constraintVertical_bias="0.571"
+        app:layout_constraintVertical_bias="0.424"
         tools:ignore="HardcodedText,TextContrastCheck,TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
