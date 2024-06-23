@@ -1,5 +1,6 @@
 package com.example.ironvault
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -153,7 +154,7 @@ class ChangePasswordFragment : DialogFragment() {
                     ).addOnSuccessListener {
                         UtilityFunctions.showToastMessage(context, "Account information updated successfully!")
                         dismiss()
-                        logOutUser()
+                        logOutUser(context)
                     }.addOnFailureListener { e ->
                         UtilityFunctions.showToastMessage(context, "Failed to update account information: ${e.message}")
                     }
@@ -177,9 +178,11 @@ class ChangePasswordFragment : DialogFragment() {
         closeButton.setBackgroundColor(color)
     }
 
-    private fun logOutUser() {
+    private fun logOutUser(context: Context) {
         val intent = Intent(activity, MainActivity::class.java)
         startActivity(intent)
-        requireActivity().finish()
+        if(context is Activity) {
+            context.finish()
+        }
     }
 }

@@ -110,21 +110,6 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/saveButtonEditDialog"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="50dp"
-                android:background="#650DD9"
-                android:text="Save"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/WhiteishTextColor"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:typeface="sans"
-                tools:ignore="HardcodedText" />
-
-            <Button
                 android:id="@+id/deleteButtonEditDialog"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="75dp"
@@ -138,6 +123,21 @@
                 android:textStyle="bold"
                 android:typeface="sans"
                 tools:ignore="HardcodedText" />
+
+            <Button
+                android:id="@+id/saveButtonEditDialog"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:background="#650DD9"
+                android:text="Save"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/WhiteishTextColor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:typeface="sans"
+                tools:ignore="HardcodedText" />
+
         </LinearLayout>
 
     </LinearLayout>
