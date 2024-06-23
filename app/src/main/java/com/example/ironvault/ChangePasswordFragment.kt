@@ -1,5 +1,6 @@
 package com.example.ironvault
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Base64
@@ -82,17 +83,17 @@ class ChangePasswordFragment : DialogFragment() {
                 return@setOnClickListener
             }
 
-            updateUserMasterPassword(emailAddress!!, newMasterPassword, encryptionKey, newEncryptionKey, iv)
+            updateUserMasterPassword(requireContext(), emailAddress!!, newMasterPassword, encryptionKey, newEncryptionKey, iv)
         }
     }
 
-    private fun updateUserMasterPassword(emailAddress: String, newMasterPassword: String, encryptionKey: SecretKey, newEncryptionKey: SecretKey, iv: ByteArray) {
+    private fun updateUserMasterPassword(context: Context, emailAddress: String, newMasterPassword: String, encryptionKey: SecretKey, newEncryptionKey: SecretKey, iv: ByteArray) {
         Firebase.firestore.collection("users")
             .whereEqualTo("emailAddress", emailAddress)
             .get()
             .addOnSuccessListener { querySnapshot ->
                 if (querySnapshot.isEmpty) {
-                    UtilityFunctions.showToastMessage(requireContext(), "User not found!")
+                    UtilityFunctions.showToastMessage(context, "User not found!")
                     return@addOnSuccessListener
                 }
 
@@ -107,25 +108,25 @@ class ChangePasswordFragment : DialogFragment() {
                         "passwordHint" to reEncryptedPasswordHint
                     )
                 ).addOnSuccessListener {
-                        UtilityFunctions.showToastMessage(requireContext(), "User master password updated successfully!")
-                        updateAccountInformation(emailAddress, encryptionKey, newEncryptionKey, iv)
+                        UtilityFunctions.showToastMessage(context, "User master password updated successfully!")
+                        updateAccountInformation(context, emailAddress, encryptionKey, newEncryptionKey, iv)
                     }
                     .addOnFailureListener { e ->
-                        UtilityFunctions.showToastMessage(requireContext(), "Failed to update user master password: ${e.message}")
+                        UtilityFunctions.showToastMessage(context, "Failed to update user master password: ${e.message}")
                     }
             }
             .addOnFailureListener { e ->
-                UtilityFunctions.showToastMessage(requireContext(), "Failed to find user: ${e.message}")
+                UtilityFunctions.showToastMessage(context, "Failed to find user: ${e.message}")
             }
     }
 
 
-    private fun updateAccountInformation(emailAddress: String, encryptionKey: SecretKey, newEncryptionKey: SecretKey, iv: ByteArray) {
+    private fun updateAccountInformation(context: Context, emailAddress: String, encryptionKey: SecretKey, newEncryptionKey: SecretKey, iv: ByteArray) {
         val accountsRef = Firebase.firestore.collection("accounts")
         accountsRef.whereEqualTo("emailAddress", emailAddress).get()
             .addOnSuccessListener { accountDocuments ->
                 if (accountDocuments.isEmpty) {
-                    UtilityFunctions.showToastMessage(requireContext(), "No accounts found for this user!")
+                    UtilityFunctions.showToastMessage(context, "No accounts found for this user!")
                     return@addOnSuccessListener
                 }
 
@@ -150,15 +151,15 @@ class ChangePasswordFragment : DialogFragment() {
                             "password" to newEncryptedPassword
                         )
                     ).addOnSuccessListener {
-                        UtilityFunctions.showToastMessage(requireContext(), "Account information updated successfully!")
+                        UtilityFunctions.showToastMessage(context, "Account information updated successfully!")
                         dismiss()
                         logOutUser()
                     }.addOnFailureListener { e ->
-                        UtilityFunctions.showToastMessage(requireContext(), "Failed to update account information: ${e.message}")
+                        UtilityFunctions.showToastMessage(context, "Failed to update account information: ${e.message}")
                     }
                 }
             }.addOnFailureListener { e ->
-                UtilityFunctions.showToastMessage(requireContext(), "Failed to fetch accounts: ${e.message}")
+                UtilityFunctions.showToastMessage(context, "Failed to fetch accounts: ${e.message}")
             }
     }
 
