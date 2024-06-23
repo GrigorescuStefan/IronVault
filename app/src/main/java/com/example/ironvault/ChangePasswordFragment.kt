@@ -179,8 +179,8 @@ class ChangePasswordFragment : DialogFragment() {
     }
 
     private fun logOutUser(context: Context) {
-        val intent = Intent(activity, MainActivity::class.java)
-        startActivity(intent)
+        val intent = Intent(context, MainActivity::class.java)
+        context.startActivity(intent)
         if(context is Activity) {
             context.finish()
         }
